@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>داشبورد مدیریت</title>
+
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body class="text-slate-800 bg-slate-50 dark:bg-slate-900 dark:text-slate-200 overflow-x-hidden">
+  <button id="themeBtn" class="theme-toggle" title="تغییر تم">
+    <svg id="sunIcon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+      </path>
+    </svg>
+    <svg id="moonIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+    </svg>
+  </button>
+
+
+  <div w3-include-html="../views/view-login.html"></div>
+  <div w3-include-html="../views/view-dashboard.html"></div>
+  <div w3-include-html="../views/view-chart-details.html"></div>
+  <div w3-include-html="../views/view-confirm-modal.html"></div>
+  <div w3-include-html="../views/view-details.html"></div>
+  <div w3-include-html="../pages/monitoring.html"></div>
+  <div w3-include-html="../pages/agency.html"></div>
+  <div w3-include-html="../pages/monitoring.html"></div>
+
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <!-- <script src="{{ url_for('static', filename='js/code.js') }}"></script> -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: {} }
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+
+</html>

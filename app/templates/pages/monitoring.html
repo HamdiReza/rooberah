@@ -1,0 +1,258 @@
+<div id="monitoring" class="page-section bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 min-h-screen">
+  <div class="max-w-7xl mx-auto px-4 md:px-8 py-8 space-y-8">
+
+    <!-- Header / Filters -->
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+      <div>
+        <p class="text-xs uppercase tracking-[0.25em] text-slate-500 dark:text-slate-400 font-semibold">Executive Monitoring</p>
+        <h1 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mt-1">CEO Performance Dashboard</h1>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">یک نمای مدیریتی از قیف فروش، وضعیت مالی، عملکرد کارشناسان و ریسک‌ها.</p>
+      </div>
+      <div class="flex flex-col md:flex-row items-stretch md:items-end gap-3 w-full lg:w-auto">
+        <div class="flex items-center gap-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-sm px-4 py-3">
+          <div class="flex flex-col text-xs text-slate-500 dark:text-slate-400">
+            <span>از</span>
+            <input id="monitoringDateFrom" type="date" class="input-modern rounded-lg mt-1 px-2 py-1 text-sm bg-transparent border border-slate-200 dark:border-slate-700">
+          </div>
+          <div class="flex flex-col text-xs text-slate-500 dark:text-slate-400">
+            <span>تا</span>
+            <input id="monitoringDateTo" type="date" class="input-modern rounded-lg mt-1 px-2 py-1 text-sm bg-transparent border border-slate-200 dark:border-slate-700">
+          </div>
+          <button id="monitoringApplyRange" class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold px-4 py-2 rounded-xl transition shadow-sm">اعمال بازه</button>
+        </div>
+        <button id="monitoringRefresh" type="button" class="inline-flex items-center justify-center gap-2 px-4 py-3 bg-slate-900 hover:bg-slate-800 text-white text-sm font-bold rounded-xl shadow-md transition">
+          <svg data-refresh-icon class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+          </svg>
+          <span data-refresh-text>به‌روزرسانی</span>
+        </button>
+        <button id="monitoringExit" type="button" class="inline-flex items-center justify-center gap-2 px-4 py-3 bg-rose-100 text-rose-600 dark:bg-rose-900/30 dark:text-rose-200 text-sm font-bold rounded-xl shadow-md transition hover:bg-rose-200 dark:hover:bg-rose-900/50">
+          خروج
+        </button>
+      </div>
+    </div>
+
+    <!-- Skeleton Loading -->
+    <div id="monitorSkeleton" class="space-y-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 animate-pulse">
+        <div class="h-24 rounded-2xl bg-slate-200/80 dark:bg-slate-700/60"></div>
+        <div class="h-24 rounded-2xl bg-slate-200/80 dark:bg-slate-700/60"></div>
+        <div class="h-24 rounded-2xl bg-slate-200/80 dark:bg-slate-700/60"></div>
+        <div class="h-24 rounded-2xl bg-slate-200/80 dark:bg-slate-700/60"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 animate-pulse">
+        <div class="h-80 rounded-2xl bg-slate-200/80 dark:bg-slate-700/60"></div>
+        <div class="h-80 rounded-2xl bg-slate-200/80 dark:bg-slate-700/60"></div>
+      </div>
+      <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 animate-pulse">
+        <div class="h-64 rounded-2xl bg-slate-200/80 dark:bg-slate-700/60"></div>
+        <div class="h-64 rounded-2xl bg-slate-200/80 dark:bg-slate-700/60"></div>
+        <div class="h-64 rounded-2xl bg-slate-200/80 dark:bg-slate-700/60"></div>
+      </div>
+    </div>
+
+    <div id="monitorContent" class="space-y-6">
+    <!-- KPI Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+      <div class="kpi-card bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 font-semibold">کل سرنخ‌ها</p>
+            <p id="kpiTotalLeads" class="text-3xl font-black text-slate-900 dark:text-white">0</p>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/40 flex items-center justify-center text-indigo-600 dark:text-indigo-300 font-black">Σ</div>
+        </div>
+      </div>
+      <div class="kpi-card bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 font-semibold">فعال / در جریان</p>
+            <p id="kpiActiveLeads" class="text-3xl font-black text-amber-600 dark:text-amber-300">0</p>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center text-amber-600 dark:text-amber-300 font-black">↻</div>
+        </div>
+      </div>
+      <div class="kpi-card bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 font-semibold">لغو شده</p>
+            <p id="kpiCancelledLeads" class="text-3xl font-black text-rose-600 dark:text-rose-300">0</p>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-rose-100 dark:bg-rose-900/40 flex items-center justify-center text-rose-600 dark:text-rose-300 font-black">✕</div>
+        </div>
+      </div>
+      <div class="kpi-card bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 font-semibold">در انتظار اقدام</p>
+            <p id="kpiWaitingLeads" class="text-3xl font-black text-slate-800 dark:text-slate-200">0</p>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 font-black">…</div>
+        </div>
+      </div>
+      <div class="kpi-card bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 font-semibold">در مرحله قرارداد</p>
+            <p id="kpiContractLeads" class="text-3xl font-black text-blue-700 dark:text-blue-300">0</p>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center text-blue-700 dark:text-blue-300 font-black">契</div>
+        </div>
+      </div>
+      <div class="kpi-card bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 font-semibold">تحویل‌شده</p>
+            <p id="kpiDeliveredLeads" class="text-3xl font-black text-emerald-600 dark:text-emerald-300">0</p>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center text-emerald-600 dark:text-emerald-300 font-black">✓</div>
+        </div>
+      </div>
+      <div class="kpi-card bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 font-semibold">مجموع پیش‌پرداخت هدف</p>
+            <p id="kpiTargetPrepaymentSum" class="text-2xl font-black text-indigo-600 dark:text-indigo-300">0</p>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/40 flex items-center justify-center text-indigo-600 dark:text-indigo-300 font-black">🎯</div>
+        </div>
+      </div>
+      <div class="kpi-card bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
+        <div class="flex items-center justify-between mb-2">
+          <div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 font-semibold">مجموع پیش‌پرداخت وصول‌شده</p>
+            <p id="kpiPaidPrepaymentSum" class="text-2xl font-black text-purple-600 dark:text-purple-300">0</p>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/40 flex items-center justify-center text-purple-600 dark:text-purple-300 font-black">💰</div>
+        </div>
+        <div class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2">
+          <span>تحقق</span>
+          <div class="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div id="kpiPaymentProgress" class="h-full bg-gradient-to-r from-emerald-400 to-blue-500" style="width:0%"></div>
+          </div>
+          <span id="kpiPaymentAchievement" class="font-bold text-slate-700 dark:text-slate-200">0%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts: Funnel + Trend -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-slate-800 dark:text-white">قیف فروش</h3>
+          <span class="text-xs text-slate-500 dark:text-slate-400">افت‌ها را کشف کنید</span>
+        </div>
+        <div class="h-80"><canvas id="monitorFunnelChart"></canvas></div>
+      </div>
+      <div class="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-slate-800 dark:text-white">روند زمانی سرنخ‌ها</h3>
+          <span class="text-xs text-slate-500 dark:text-slate-400">روز / هفته / ماه</span>
+        </div>
+        <div class="h-80"><canvas id="monitorTrendChart"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Expert Performance & Financial -->
+    <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+      <div class="xl:col-span-2 bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-slate-800 dark:text-white">عملکرد کارشناسان</h3>
+          <span class="text-xs text-slate-500 dark:text-slate-400">قراردادها / نرخ تبدیل / پیش‌پرداخت</span>
+        </div>
+        <div class="h-72 mb-4"><canvas id="monitorExpertChart"></canvas></div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400">
+              <tr>
+                <th class="py-2 text-left">کارشناس</th>
+                <th class="py-2 text-right">سرنخ</th>
+                <th class="py-2 text-right">قرارداد</th>
+                <th class="py-2 text-right">تحویل</th>
+                <th class="py-2 text-right">پیش‌پرداخت وصول</th>
+                <th class="py-2 text-right">نرخ تبدیل</th>
+              </tr>
+            </thead>
+            <tbody id="monitorExpertTableBody" class="divide-y divide-slate-100 dark:divide-slate-800"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="space-y-4">
+        <div class="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-bold text-slate-800 dark:text-white">نمای مالی</h3>
+            <span class="text-xs text-slate-500 dark:text-slate-400">Paid / Unpaid / Target</span>
+          </div>
+          <div class="h-60"><canvas id="monitorFinancialChart"></canvas></div>
+        </div>
+        <div class="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm p-6">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-lg font-bold text-slate-800 dark:text-white">گلوگاه‌ها</h3>
+            <span class="text-xs text-slate-500 dark:text-slate-400">اعتباری / چک / تضامین / اسقاط / مدارک</span>
+          </div>
+          <div class="h-52"><canvas id="monitorBottleneckChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    
+    
+    <!-- Brand / Usage Analytics -->
+    <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+      <div class="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm p-6">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-lg font-bold text-slate-800 dark:text-white">تحلیل برندها (برند انتخابی)</h3>
+          <span class="text-xs text-slate-500 dark:text-slate-400">درخواست + نرخ تبدیل</span>
+        </div>
+        <div class="h-64"><canvas id="monitorBrandChart"></canvas></div>
+        <div id="monitorBrandSummary" class="mt-3 text-xs text-slate-600 dark:text-slate-300"></div>
+      </div>
+      <div class="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm p-6">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-lg font-bold text-slate-800 dark:text-white">تحلیل کاربری‌ها (کاربری انتخابی)</h3>
+          <span class="text-xs text-slate-500 dark:text-slate-400">حجم + نرخ تبدیل</span>
+        </div>
+        <div class="h-64"><canvas id="monitorUsageChart"></canvas></div>
+      </div>
+      <div class="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm p-6">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-lg font-bold text-slate-800 dark:text-white">دلایل لغو به تفکیک کاربری</h3>
+          <span class="text-xs text-slate-500 dark:text-slate-400">درصدی از انصراف‌های هر کاربری</span>
+        </div>
+        <div class="h-64"><canvas id="monitorCancelByUsageChart"></canvas></div>
+        <div id="monitorCancelUsageTop" class="mt-3 text-xs text-slate-600 dark:text-slate-300"></div>
+      </div>
+    </div>
+
+    <!-- Brand × Usage Matrix -->
+    <div class="grid grid-cols-1 gap-6">
+      <div class="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm p-6">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-lg font-bold text-slate-800 dark:text-white">ارتباط برند × کاربری</h3>
+          <span class="text-xs text-slate-500 dark:text-slate-400">حجم درخواست به تفکیک</span>
+        </div>
+        <div class="h-72"><canvas id="monitorBrandUsageChart"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Cancellation & Insights -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="lg:col-span-2 bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-slate-800 dark:text-white">دلایل لغو</h3>
+          <span class="text-xs text-slate-500 dark:text-slate-400">Top reasons</span>
+        </div>
+        <div class="h-72"><canvas id="monitorCancellationChart"></canvas></div>
+      </div>
+      <div class="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm p-6 space-y-3">
+        <div class="flex items-center justify-between">
+          <h3 class="text-lg font-bold text-slate-800 dark:text-white">Insight فوری</h3>
+          <span class="text-xs text-slate-500 dark:text-slate-400">Auto highlights</span>
+        </div>
+        <div id="monitorInsightsList" class="space-y-2 text-sm text-slate-700 dark:text-slate-200"></div>
+      </div>
+    </div>
+
+  </div> <!-- /#monitorContent -->
+  </div>
+</div>

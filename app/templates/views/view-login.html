@@ -1,0 +1,58 @@
+<div id="login" class="page-section active items-center justify-center p-4 relative">
+  <div
+    class="bg-image-container"
+    style="background-image: url('https://lh3.googleusercontent.com/d/1NTXSw_ocNkD3yKUdtrc2w-DEOPC4xAQU'); filter: blur(4px) brightness(0.6);">
+  </div>
+
+  <div class="glass-panel w-full max-w-sm rounded-3xl p-8 text-center shadow-2xl relative z-10">
+    <div class="mx-auto mb-6 flex justify-center">
+      <img
+        src="https://lh3.googleusercontent.com/d/1M3-qJrnuhU9xXd2wabi2C9CLWJ4v9Fjf"
+        alt="Logo"
+        class="w-24 h-auto drop-shadow-md"
+        referrerpolicy="no-referrer" />
+    </div>
+
+    <h1 class="text-2xl font-black mb-2 tracking-tight dark:text-white">دنیای ماموت</h1>
+    <p class="text-slate-500 dark:text-slate-400 text-sm mb-8 font-medium">
+      سامانه یکپارچه مدیریت سرنخ (CRM)
+    </p>
+
+    <div class="space-y-4" onkeydown="if(event.key==='Enter') app.doLogin()">
+      <input
+        id="loginUser"
+        type="text"
+        class="input-modern w-full rounded-xl py-3 px-4 text-sm outline-none"
+        placeholder="نام کاربری" />
+
+      <input
+        id="loginPass"
+        type="password"
+        class="input-modern w-full rounded-xl py-3 px-4 text-sm outline-none"
+        placeholder="رمز عبور" />
+
+      <button
+        onclick="app.doLogin()"
+        id="loginBtn"
+        type="button"
+        class="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-blue-900/30 mt-6 flex justify-center items-center gap-2 active:scale-95 cursor-pointer">
+        <span>ورود به سیستم</span>
+        <div
+          id="loginSpinner"
+          class="hidden animate-spin w-4 h-4 border-2 border-white/40 border-t-white rounded-full">
+        </div>
+      </button>
+    </div>
+
+    <p
+      id="loginError"
+      class="text-rose-600 dark:text-rose-400 text-xs mt-4 h-5 font-bold">
+    </p>
+  </div>
+
+  <div class="absolute bottom-4 text-white/60 text-xs z-10">
+    Mammut World © 2025
+  </div>
+</div>
+
+

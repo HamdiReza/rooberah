@@ -1,0 +1,142 @@
+<div id="agency" class="page-section bg-slate-50 dark:bg-slate-900">
+  <div class="flex h-screen overflow-hidden">
+    <!-- Sidebar -->
+    <aside
+      class="w-64 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border-l border-slate-200 dark:border-slate-700 flex flex-col z-20 shadow-lg hidden md:flex">
+      <div class="p-6 flex items-center gap-3 border-b border-slate-100 dark:border-slate-700">
+        <img
+          src="https://lh3.googleusercontent.com/d/1M3-qJrnuhU9xXd2wabi2C9CLWJ4v9Fjf"
+          class="w-8 h-8 rounded-full"
+          alt="Logo" />
+        <span class="font-black text-lg tracking-tight">پنل نمایندگی</span>
+      </div>
+
+      <div class="flex-1 overflow-y-auto py-4 px-3 space-y-1">
+        <div onclick="app.navigateTo('agency')" class="sidebar-link active-link">
+          <svg class="sidebar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+            </path>
+          </svg>
+          <span>داشبورد نمایندگی</span>
+        </div>
+      </div>
+
+      <div class="p-4 border-t border-slate-200 dark:border-slate-700">
+        <button
+          onclick="app.logout()"
+          class="w-full flex items-center justify-center gap-2 bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-900/40 p-3 rounded-xl transition text-sm font-bold">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
+            </path>
+          </svg>
+          <span>خروج</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="flex-1 overflow-y-auto relative h-full">
+      <div
+        class="md:hidden flex items-center justify-between p-4 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
+        <span class="font-bold">پنل نمایندگی</span>
+        <button onclick="app.logout()" class="text-rose-500 text-sm">خروج</button>
+      </div>
+
+      <div class="p-4 md:p-8 max-w-[1600px] mx-auto min-h-full">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-8 pb-4 border-b border-slate-200 dark:border-slate-700 w-full bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm p-4 rounded-2xl">
+          <div class="flex items-center gap-4 w-full md:w-auto">
+            <div>
+              <h2
+                class="text-2xl font-black text-slate-800 dark:text-white"
+                id="agencyGreetingMsg">
+                پنل نمایندگی
+              </h2>
+              <div class="flex items-center gap-2 mt-1">
+                <div
+                  class="text-xs text-slate-500 dark:text-slate-300 font-mono bg-white dark:bg-slate-700 px-2 py-0.5 rounded border border-slate-100 dark:border-slate-600 w-fit"
+                  id="agencyUsernameDisplay">
+                  ...
+                </div>
+                <span class="flex h-2 w-2 relative">
+                  <span
+                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75">
+                  </span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agency Leads table -->
+        <div
+          class="glass-panel rounded-3xl overflow-hidden bg-white dark:bg-slate-800 min-h-[400px]">
+          <div
+            class="p-5 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-white dark:bg-slate-800 sticky top-0 z-20">
+            <h3 class="font-bold text-slate-700 dark:text-slate-200">
+              لیست مشتریان منتقل شده به نمایندگی
+            </h3>
+
+            <div class="flex-1 flex justify-center px-4">
+              <input
+                id="agencySearchInput"
+                type="text"
+                class="search-input input-modern w-full max-w-2xl p-4 rounded-2xl text-base bg-slate-100 dark:bg-slate-700/50 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-600 focus:outline-none focus:ring-0 focus:border-blue-500 placeholder-slate-400 text-center mt-2 mb-2 mx-4"
+                placeholder="جستجو بر اساس نام، تلفن، کد ملی یا محصول..."
+                oninput="app.searchAgencyLeads()" />
+            </div>
+
+            <button
+              id="agencyRefreshBtn"
+              onclick="app.refreshAgencyTable(false)"
+              class="text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition bg-slate-50 dark:bg-slate-700 hover:bg-blue-50 dark:hover:bg-slate-600 p-2 rounded-lg">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
+                </path>
+              </svg>
+            </button>
+          </div>
+
+          <div class="scrollable-table-container max-h-[380px] overflow-y-auto overflow-x-hidden">
+            <table class="w-full text-right text-sm table-fixed">
+              <thead
+                id="agencyTableHeader"
+                class="bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 font-bold border-b border-slate-200 dark:border-slate-600 shadow-sm table-data">
+              </thead>
+              <tbody
+                id="agencyTableBody"
+                class="divide-y divide-slate-50 dark:divide-slate-700">
+              </tbody>
+            </table>
+
+            <div
+              id="agencyEmptyState"
+              class="hidden flex flex-col items-center justify-center py-16 text-slate-300 dark:text-slate-600 absolute inset-0">
+              <p class="text-sm font-medium">رکوردی یافت نشد</p>
+            </div>
+
+            <div
+              id="agencyLoadingState"
+              class="flex flex-col items-center justify-center py-20 text-blue-400 absolute inset-0 bg-white dark:bg-slate-800/80">
+              <div
+                class="animate-spin w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full mb-3">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
