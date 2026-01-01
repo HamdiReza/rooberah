@@ -6,17 +6,41 @@
   <title>داشبورد مدیریت</title>
 
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet"/>
+
+  <!-- Tailwind config باید قبل از خود Tailwind باشد -->
+  <script>
+    tailwind = window.tailwind || {};
+    tailwind.config = { darkMode: 'class', theme: { extend: {} } };
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://www.w3schools.com/lib/w3.js"></script>
 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+  <!-- FRONT-ONLY MODE: جلوگیری از crash به خاطر google.script.run -->
+  <script>
+    window.__NO_GOOGLE__ = true;
+
+    window.google = window.google || {};
+    window.google.script = window.google.script || {};
+    if (!window.google.script.run) {
+      window.google.script.run = new Proxy({}, {
+        get() {
+          // chainable stub: withSuccessHandler / withFailureHandler
+          return () => ({
+            withSuccessHandler() { return this; },
+            withFailureHandler() { return this; },
+          });
+        }
+      });
+    }
+  </script>
 </head>
 
 <body class="text-slate-800 bg-slate-50 dark:bg-slate-900 dark:text-slate-200 overflow-x-hidden">
   <button id="themeBtn" class="theme-toggle" title="تغییر تم">
     <svg id="sunIcon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 0 018 0z">
       </path>
     </svg>
     <svg id="moonIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -25,27 +49,24 @@
     </svg>
   </button>
 
+  <!-- ✅ به جای w3-include، از include سمت سرور (Jinja) استفاده کن -->
+  {% include 'views/view-login.html' %}
+  {% include 'views/view-dashboard.html' %}
+  {% include 'views/view-chart-details.html' %}
+  {% include 'views/view-confirm-modal.html' %}
+  {% include 'views/view-details.html' %}
+  {% include 'pages/monitoring.html' %}
+  {% include 'pages/agency.html' %}
 
-  <div w3-include-html="../views/view-login.html"></div>
-  <div w3-include-html="../views/view-dashboard.html"></div>
-  <div w3-include-html="../views/view-chart-details.html"></div>
-  <div w3-include-html="../views/view-confirm-modal.html"></div>
-  <div w3-include-html="../views/view-details.html"></div>
-  <div w3-include-html="../pages/monitoring.html"></div>
-  <div w3-include-html="../pages/agency.html"></div>
-  <div w3-include-html="../pages/monitoring.html"></div>
+  <!-- ✅ اگر ثابت‌ها/کانفیگ‌ها/هدرها تو code.js هستند، باید قبل script.js لود شوند -->
+  <script src="{{ url_for('static', filename='js/code.js') }}"></script>
 
-
+  <!-- ✅ بعدش اسکریپت اصلی -->
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-  <!-- <script src="{{ url_for('static', filename='js/code.js') }}"></script> -->
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: { extend: {} }
-    }
-  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- اگر جایی از w3.includeHTML استفاده می‌کردی، اینجا حذف شده چون دیگه w3.js لازم نیست -->
 </body>
 
 </html>
